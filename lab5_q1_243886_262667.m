@@ -6,7 +6,7 @@
 % y''' + 41 y'' + 360 y' + 900 y = 600 x' + 1200 x, onde y(0) = 2, y'(0) = 1
 % e y''(0) = -0,05
 % Baseando-se nisso, pede-se:
-
+%
 % (a) Calcular a solução desta equação diferencial, ou seja, calcular a 
 % resposta natural, a resposta forçada para um degrau unitário e a resposta 
 % completa, como visto na área 1 da disciplina.
@@ -26,6 +26,7 @@
 % diferencial dada no simulink (usando blocos somadores, integradores e 
 % ganhos) e simule as respostas natural, forçada e completa. Obtenha as 
 % mesmas respostas usando blocos de funções de transferência.
+%
 % Conclusão: Pudemos notar que o uso da Transformada de Laplace pode tornar
 % a resolução de uma EDO muito mais simples e direta e também fornce um
 % insight muito bom sobre o funcionamento do sistema, separado a resposta
@@ -34,6 +35,7 @@
 % circunstâncias diferentes apresentaram as mesmas respostas, validando
 % nossa resolução, o modelo utilizado e as ferramentas.
 
+tic
 
 %Para o cálculo analítico da equação, começamos encontrando as raízes do
 %polinômio característico para a resposta natural
@@ -113,7 +115,7 @@ yn = ilaplace(Yn);
 %numérico
 
 yn = double(subs(yn)); %Subs avalia a função e double converte para numérico
-yn = sum(yn,1);
+yn = sum(yn,1); %Soma cada membro que estava separado na forma simbólica
 %Resposta forçada obtida considerando condições iniciais nulas
 
 numerador = [600 1200];
@@ -129,7 +131,7 @@ yf = ilaplace(Yf);
 yf = double(subs(yf));  %Subs avalia a função e double converte para numérico
 yf = sum(yf,1);
 
-yc = yn + yf; %Resposta completa
+yc = yn + yf; %Resposta completa em formato numérico
 
 fig2 = figure;
 fig2.Name = 'Questão 1c)';
@@ -259,3 +261,5 @@ xlabel('t');
 ylabel('${ y }_{ c }(t)$','Interpreter','LaTex');
 axis([0 1.5 -0.5 3.5]);
 grid on;
+
+toc
